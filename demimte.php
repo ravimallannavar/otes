@@ -1,57 +1,4 @@
-<?php
-error_reporting(E_ERROR | E_PARSE); 
-session_start();
-if(!isset($_SESSION['id'],$_SESSION['department']))
-{
-	header('location:index.php?lmsg=true');
-	exit;
-}
-require_once('includes/dbconfig.php');
-include("includes/config.php");
 
-?>
-
-<?php
-$timezone = 'Asia/Kolkata';
-date_default_timezone_set($timezone);
-$today = date('d-m-Y');
-$year = date('Y');
-if(isset($_GET['year'])){
-$year = $_GET['year'];
-}
-
-?>
-
-
-<?php 
-if(isset($_GET['status']))
-{
-	$status1=$_GET['status'];
-	$select=mysql_query("select * from imte_calen where id='$status1'");
-	while($row=mysql_fetch_object($select))
-	{
-		$status_var=$row->instrumentstatus;
-		if($status_var=='0')
-		{
-			$status_state=1;
-		}
-		else
-		{
-			$status_state=0;
-		}
-		$update=mysql_query("update imte_calen set instrumentstatus='$status_state' where id='$status1'");
-		if($update)
-		{
-			header("Location:imte_calenupdate.php");
-		}
-		else
-		{
-			echo mysql_error();
-		}
-	}
-}
-
-?>
 <?php
 if (isset($_POST['submit'])) {
 
@@ -368,6 +315,7 @@ if (isset($_POST['submit'])) {
 						<div class="page-wrapper" >
 							<div class="row page-titles m-b-0 " style="height:45px">
 								<div class="col-md-5 align-self-center">
+									<h1>IMTE CALENDER</h1>
 									<h4 class="text-themecolor">IMTE</h4>
 								</div>
 								<div class="col-md-7 align-self-center">
